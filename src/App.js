@@ -3,6 +3,7 @@ import Header from "./components/layouts/Header";
 import Navbar2 from "./components/layouts/Navbar2";
 import Footer from "./components/layouts/Footer";
 import News from "./components/News";
+import Login from "./components/layouts/Login";
 import "./App.css";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
@@ -73,6 +74,17 @@ const App = () => {
             path="/top"
             render={() => (
               <News
+                isLoading={isLoading}
+                hideLoader={hideLoader}
+                showLoader={showLoader}
+              />
+            )}
+          />
+           <Route
+            key="login"
+            path="/login"
+            render={() => (
+              <Login
                 isLoading={isLoading}
                 hideLoader={hideLoader}
                 showLoader={showLoader}

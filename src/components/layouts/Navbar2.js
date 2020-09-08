@@ -3,44 +3,39 @@ import { Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 
+
 const Navbar2 = ({ showLoader }) => {
   return (
+    
     <Navbar style={{ background: "#e8e8e8" }}>
       <Nav className="mr-auto navbar2">
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            <span>News</span>
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu style={dropDownMenuStyle}>
-            <Dropdown.Item onClick={showLoader}>
-              <Link to="/top" style={{ textDecoration: "none", color: "#000" }}>
-                <div>Top</div>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Item onClick={showLoader}>
-              <Link to="/new" style={{ textDecoration: "none", color: "#000" }}>
-                <div> New</div>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Item onClick={showLoader}>
-              <Link
-                to="/best"
-                style={{ textDecoration: "none", color: "#000" }}
-              >
-                <div>Best</div>
-              </Link>
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-
+        
+       
         <Link
-          to="/shows"
+          to="/new"
           style={linkStyle}
           onClick={showLoader}
           className="navLink"
         >
-          <span>Show</span>
+          <span>new</span>
+        </Link>
+        <Link
+          to="/past"
+          style={linkStyle}
+          onClick={showLoader}
+          className="navLink"
+        >
+          <span>past</span>
+        </Link>
+        
+
+        <Link
+          to="/comment"
+          style={linkStyle}
+          onClick={showLoader}
+          className="navLink"
+        >
+          <span>comment</span>
         </Link>
 
         <Link
@@ -49,16 +44,32 @@ const Navbar2 = ({ showLoader }) => {
           onClick={showLoader}
           className="navLink"
         >
-          <span>Ask</span>
+          <span>ask</span>
         </Link>
 
+        <Link
+          to="/shows"
+          style={linkStyle}
+          onClick={showLoader}
+          className="navLink"
+        >
+          <span>show</span>
+        </Link>
         <Link
           to="/jobs"
           style={linkStyle}
           onClick={showLoader}
           className="navLink"
         >
-          <span>Jobs</span>
+          <span>jobs</span>
+        </Link>
+        <Link
+          to="/submit"
+          style={linkStyle}
+          onClick={showLoader}
+          className="navLink"
+        >
+          <span>submit</span>
         </Link>
       </Nav>
     </Navbar>
