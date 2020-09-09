@@ -45,6 +45,14 @@ table {
   color: #ffff;
 }
 
+.footer {
+  margin-top: 35px;
+  background: #c7c7c7;
+  border-top: 2px solid #ff6600;
+  color: #000;
+  padding: 20px;
+  padding-bottom: 0;
+}
 ul > li {
   display: inline-block;
   margin: 10px;

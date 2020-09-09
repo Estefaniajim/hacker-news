@@ -5,6 +5,7 @@ import Footer from "./components/layouts/Footer";
 import News from "./components/News";
 import Login from "./components/layouts/Login";
 import Submit from "./components/layouts/Submit";
+import forgotPassword from "./components/layouts/forgotPassword";
 import "./App.css";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
@@ -86,6 +87,18 @@ const App = () => {
             path="/login"
             render={() => (
               <Login
+                isLoading={isLoading}
+                hideLoader={hideLoader}
+                showLoader={showLoader}
+              />
+
+            )}
+          />
+           <Route
+            key="forgotPassword"
+            path="/forgotPassword"
+            render={() => (
+              <forgotPassword
                 isLoading={isLoading}
                 hideLoader={hideLoader}
                 showLoader={showLoader}

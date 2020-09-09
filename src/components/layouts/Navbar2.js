@@ -10,7 +10,14 @@ const Navbar2 = ({ showLoader }) => {
     <Navbar style={{ background: "#e8e8e8" }}>
       <Nav className="mr-auto navbar2">
         
-       
+      <Link
+          to="/welcome" //need to create welcome page when they sign in
+          style={linkStyle}
+          onClick={showLoader}
+          className="navLink"
+        >
+          <span>welcome</span>
+        </Link>
         <Link
           to="/new"
           style={linkStyle}
@@ -18,6 +25,14 @@ const Navbar2 = ({ showLoader }) => {
           className="navLink"
         >
           <span>new</span>
+        </Link>
+        <Link
+          to="/threads" 
+          style={linkStyle}
+          onClick={showLoader}
+          className="navLink"
+        >
+          <span>threads</span>
         </Link>
         <Link
           to="/past"
@@ -87,7 +102,7 @@ const linkStyle = {
   boxShadow: "0px 2px 10px -7px rgba(0, 0, 0, 0.75)",
   borderRadius: "20px",
   transition: " all 0.5s",
-  background: "#fff"
+  background: "#ffff"
 };
 
 const dropDownMenuStyle = {

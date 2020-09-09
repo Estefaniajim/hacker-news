@@ -1,5 +1,10 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Nav, Navbar } from "react-bootstrap";
+import forgotPassword from "./forgotPassword";
+
+
 
 const Login = () => {
   return (
@@ -13,7 +18,11 @@ const Login = () => {
     <Button>Login</Button>
     <br></br>
     <br></br>
-    Forgot your password
+    
+
+
+    <div><Link to="/forgotPassword">Forgot your password?</Link></div>
+
     <br></br>
     <br></br>
     <strong>Create Account</strong><br></br>

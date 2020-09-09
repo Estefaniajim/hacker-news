@@ -43,7 +43,7 @@ const News = props => {
         route = "/beststories";
         break;
       case "/past":
-          route = "/paststories";
+          route = "/past";
           break;
 
       default:
