@@ -3,9 +3,12 @@ import Header from "./components/layouts/Header";
 import Navbar2 from "./components/layouts/Navbar2";
 import Footer from "./components/layouts/Footer";
 import News from "./components/News";
+import Welcome from "./components/layouts/Welcome";
 import Login from "./components/layouts/Login";
 import Submit from "./components/layouts/Submit";
+import SignUp from "./components/layouts/SignUp";
 import forgotPassword from "./components/layouts/forgotPassword";
+
 import "./App.css";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
@@ -37,6 +40,32 @@ const App = () => {
               />
             )}
           />
+
+<Route
+            exact
+            key="welcome"
+            path="/welcome"
+            render={() => (
+              <Welcome
+                isLoading={isLoading}
+                hideLoader={hideLoader}
+                showLoader={showLoader}
+              />
+            )}
+          />
+          
+          <Route
+            key="signUp"
+            path="/signUp"
+            render={() => (
+              <News
+                isLoading={isLoading}
+                hideLoader={hideLoader}
+                showLoader={showLoader}
+              />
+            )}
+          />
+           
           <Route
             key="shows"
             path="/shows"
@@ -91,6 +120,7 @@ const App = () => {
                 hideLoader={hideLoader}
                 showLoader={showLoader}
               />
+              
 
             )}
           />
