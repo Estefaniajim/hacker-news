@@ -9,8 +9,7 @@ const Stories = ({ state }) => {
           <tr key={item}>
             <td style={{ padding: "0px" }}>
               <i
-                className="fas fa-sort-up"
-                
+               
                 style={{
                   fontSize: "30px",
                   marginTop: "16px",
@@ -19,9 +18,7 @@ const Stories = ({ state }) => {
                 
                 }}
               />
-              
             </td>
-            
             <td
               style={{
                 padding: "0px",
