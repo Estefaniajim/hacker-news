@@ -5,7 +5,8 @@ import Footer from "./components/layouts/Footer";
 import News from "./components/News";
 import Welcome from "./components/layouts/Welcome";
 import Login from "./components/layouts/Login";
-import Submit from "./components/layouts/Submit";
+import CommentForm from "./components/layouts/CommentForm";
+import Threads from "./components/layouts/Threads";
 import SignUp from "./components/layouts/SignUp";
 import forgotPassword from "./components/layouts/forgotPassword";
 
@@ -34,6 +35,18 @@ const App = () => {
             path="/"
             render={() => (
               <News
+                isLoading={isLoading}
+                hideLoader={hideLoader}
+                showLoader={showLoader}
+              />
+            )}
+          />
+          <Route
+            exact
+            key="threads"
+            path="/threads"
+            render={() => (
+              <Threads
                 isLoading={isLoading}
                 hideLoader={hideLoader}
                 showLoader={showLoader}
@@ -141,12 +154,9 @@ const App = () => {
             key="submit"
             path="/submit"
             render={() => (
-              <Submit
-                isLoading={isLoading}
-                hideLoader={hideLoader}
-                showLoader={showLoader}
-              />
-              
+             
+             
+              <CommentForm/>
             )}
           />
           <Route
