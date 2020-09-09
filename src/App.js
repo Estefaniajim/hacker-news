@@ -5,6 +5,11 @@ import Footer from "./components/layouts/Footer";
 import News from "./components/News";
 import Welcome from "./components/layouts/Welcome";
 import Login from "./components/layouts/Login";
+<<<<<<< Updated upstream
+=======
+
+import { AuthProvider } from './Auth';
+>>>>>>> Stashed changes
 import CommentForm from "./components/layouts/CommentForm";
 import Threads from "./components/layouts/Threads";
 import SignUp from "./components/layouts/SignUp";
