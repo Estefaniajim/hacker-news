@@ -34,6 +34,7 @@ const News = props => {
       case "/top":
         route = "/topstories";
         break;
+      
 
        
 
