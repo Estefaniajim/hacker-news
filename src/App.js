@@ -6,6 +6,8 @@ import News from "./components/News";
 import Welcome from "./components/layouts/Welcome";
 import Login from "./components/layouts/Login";
 import Submit from "./components/layouts/Submit";
+import { AuthProvider } from './Auth';
+// import PrivateRoute from './PrivateRoute';
 import SignUp from "./components/layouts/SignUp";
 import forgotPassword from "./components/layouts/forgotPassword";
 
@@ -23,6 +25,7 @@ const App = () => {
   };
 
   return (
+    <AuthProvider>
     <Router>
       <Header showLoader={showLoader} />
       <Navbar2 showLoader={showLoader} />
@@ -175,6 +178,7 @@ const App = () => {
       </Switch>
       <Footer />
     </Router>
+    </AuthProvider>
   );
 };
 
