@@ -1,9 +1,9 @@
-from flask import Flask, render_template, url_for, request, session, redirect, g
+from flask import Flask, url_for, request, session, redirect
 from flask_pymongo import PyMongo
 from functools import wraps
 import json
 from bson import json_util
-import bcrypt
+from flask_bcrypt import Bcrypt
 import dns
 import datetime
 
@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.secret_key = 'okeechobee'
 app.config['MONGO_URI'] = 'mongodb+srv://admin:password!@cluster0.2d4yb.mongodb.net/hacker-news?retryWrites=true&w=majority'
 mongo = PyMongo(app)
+bcrypt = Bcrypt(app)
 
 def checkLoggedIn():
     def check(func):
@@ -41,12 +42,14 @@ def login():
         login_user = users.find_one({'username' : request.form['username']})
 
         if login_user:
-            if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password']) == login_user['password']:
+            pw_hash = bcrypt.check_password_hash(login_user['password'],request.form['password'])
+            if pw_hash:
                 session['username'] = request.form['username']
-                session['type'] = 'user'
                 return { 'status' : 'Login Successful'}
+            else:
+                return {'status': 'incorrect password'}
 
-        return {'status': 'Invalid username/password combination' }
+        return {'status': 'username not found' }
     
     return { 1 : 1 }
 
@@ -56,19 +59,17 @@ def register():
     session.pop('username', None)
     if request.method == 'POST':
         users = mongo.db.users
-        existing_user = users.find_one({'username' : request.form['username']})
+        existing_user = users.find_one({'username':request.form['username']})
 
         if existing_user is None:
-            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            users.insert(
-                    {
+            hashpass = bcrypt.generate_password_hash(request.form['password'])
+            users.insert({
                     'username' : request.form['username'],
-                    'password' : hashpass
-                    }
+                    'password' : hashpass}
                     )
             session['username'] = request.form['username']
             return {'status' : 'Registration successful'}
-        return {'status' : 'That username already exists!'}
+        return {'status' : 'That username already exists! Try a new one'}
     return { 1 : 1 }
 
 
