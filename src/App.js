@@ -5,7 +5,6 @@ import Footer from "./components/layouts/Footer";
 import News from "./components/News";
 import Welcome from "./components/layouts/Welcome";
 import Login from "./components/layouts/Login";
-import Submit from "./components/layouts/Submit";
 import { AuthProvider } from './Auth';
 import CommentForm from "./components/layouts/CommentForm";
 import Threads from "./components/layouts/Threads";
