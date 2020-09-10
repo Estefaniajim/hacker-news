@@ -1,5 +1,6 @@
 import React from "react";
 import timeago from "epoch-timeago";
+import Upvote from "./Upvote";
 
 const Stories = ({ state }) => {
   return (
@@ -79,6 +80,7 @@ const Stories = ({ state }) => {
                   {comments_count}
                 </a>
               </td>
+              <Upvote />
             </React.Fragment>
           </tr>
         )
