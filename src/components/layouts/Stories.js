@@ -1,8 +1,18 @@
 import React from "react";
 import timeago from "epoch-timeago";
 import Upvote from "./Upvote";
+import CommentUnderPost from "./CommentUnderPost";
+import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom'
+import CommentForm from "./CommentForm";
+import {Button} from "react-bootstrap";
+
+
 
 const Stories = ({ state }) => {
+  
+ 
+  
   return (
     <>
       {state.map(
@@ -32,8 +42,12 @@ const Stories = ({ state }) => {
             <td >
               <a href={url} target="_blank" rel="noopener noreferrer">
                 {title}
+              
               </a>
+              
+
             </td>
+            
             <React.Fragment className="info">
               <td style={{ color: "#black" }}>
                 <i  />{" "}
@@ -81,6 +95,7 @@ const Stories = ({ state }) => {
                 </a>
               </td>
               <Upvote />
+              <CommentUnderPost/>
             </React.Fragment>
           </tr>
         )

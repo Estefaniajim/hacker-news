@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 
 class Upvote extends Component {
+  
   state = { vote: 0, score: 0 }
+
+  
 
   vote = (type) => {
     this.setState( state => ({
@@ -9,6 +12,7 @@ class Upvote extends Component {
     }))
   }
 
+  
   render() {
     const { vote, score } = this.state;
     return (

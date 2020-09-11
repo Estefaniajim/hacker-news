@@ -68,6 +68,19 @@ const App = () => {
               />
             )}
           />
+
+<Route
+            exact
+            key="past"
+            path="/past"
+            render={() => (
+              <News
+                isLoading={isLoading}
+                hideLoader={hideLoader}
+                showLoader={showLoader}
+              />
+            )}
+          />
           
           <Route
             key="signUp"
@@ -84,6 +97,17 @@ const App = () => {
           <Route
             key="shows"
             path="/shows"
+            render={() => (
+              <News
+                isLoading={isLoading}
+                hideLoader={hideLoader}
+                showLoader={showLoader}
+              />
+            )}
+          />
+           <Route
+            key="comments"
+            path="/comments"
             render={() => (
               <News
                 isLoading={isLoading}

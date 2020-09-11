@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Threads from "./Threads";
+import {Link} from "react";
 
 
 export default class CommentForm extends Component {
@@ -10,7 +11,7 @@ export default class CommentForm extends Component {
       error: "",
 
       comment: {
-        name: "hi",
+        name: "",
         message: ""
       }
     };
@@ -102,6 +103,18 @@ export default class CommentForm extends Component {
    
         <form method="post" onSubmit={this.onSubmit}>
           <div className="form-group">
+            title
+            <input
+              onChange={this.handleFieldChange}
+              value={this.state.comment.name}
+              className="form-control"
+              placeholder="Your Name"
+              name="name"
+              type="text"
+            />
+          </div>
+          <div className="form-group">
+            url
             <input
               onChange={this.handleFieldChange}
               value={this.state.comment.name}
@@ -113,6 +126,7 @@ export default class CommentForm extends Component {
           </div>
 
           <div className="form-group">
+            text
             <textarea
               onChange={this.handleFieldChange}
               value={this.state.comment.message}
@@ -127,13 +141,19 @@ export default class CommentForm extends Component {
     
 
           <div className="form-group">
-            <button className="btn btn-primary" >
-              Comment &#10148;
+            <button className="btn btn-primary"  >
+              Submit &#10148;
             </button>
           </div>
           <Threads message={this.state.comment.name}/>
+          <div>
+          
+          Leave url blank to submit a question for discussion. If there is no url, the text (if any) will appear at the top of the thread.
+          
+          You can also submit via bookmarklet.
+                  </div>
         </form>
-        
+      
        
     
     );

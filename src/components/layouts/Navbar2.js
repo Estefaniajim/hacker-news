@@ -45,7 +45,7 @@ const Navbar2 = ({ showLoader }) => {
         
 
         <Link
-          to="/comment"
+          to="/comments"
           style={linkStyle}
           onClick={showLoader}
           className="navLink"
@@ -100,7 +100,6 @@ const linkStyle = {
   paddingLeft: "20px",
   paddingRight: "20px",
   boxShadow: "0px 2px 10px -7px rgba(0, 0, 0, 0.75)",
-  borderRadius: "20px",
   transition: " all 0.5s",
   background: "#ffff"
 };
