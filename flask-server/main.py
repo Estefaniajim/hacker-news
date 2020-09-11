@@ -84,6 +84,8 @@ def logout():
 def forgot():
 # are we directing to a confirm email page?
     #return redirect(url_for('index'))
+    # How about using render_template
+    # return render_template("index.html")
 
 #************************FEATURES API ENDPOINTS **************************************************************
 
