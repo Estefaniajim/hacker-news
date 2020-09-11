@@ -31,7 +31,7 @@ def checkLoggedIn():
 def index():
     if 'username' in session:
         return jsonify('You are logged in as ' + session['username'])
-    return {1:1}
+    return jsonify({1:1})
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
