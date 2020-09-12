@@ -6,9 +6,11 @@ from bson import json_util
 from flask_bcrypt import Bcrypt
 import dns
 import os
+from MongoDB import data
+import model
 
 app = Flask(__name__,template_folder="scr/components/layouts")
-
+app.secret_key = os.getenv("secret_key")
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
