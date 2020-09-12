@@ -5,8 +5,6 @@ import json
 from bson import json_util
 from flask_bcrypt import Bcrypt
 import dns
-import datetime
-import json
 
 app = Flask(__name__)
 app.secret_key = 'okeechobee'
@@ -18,8 +16,6 @@ def checkLoggedIn():
     def check(func):
         @wraps(func)
         def inner(*args, **kwargs):
-            print(session['username'])
-            print(session)
             if 'username' in session:
                 return func(*args, **kwargs)
             else:
@@ -36,12 +32,10 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'username' in session:
-        return jsonify({'status': 'Logged in' })
-
+        return jsonify({'status': 'logged in' })
     if request.method == 'POST':
         users = mongo.db.users
         login_user = users.find_one({'username' : request.form['username']})
-
         if login_user:
             pw_hash = bcrypt.check_password_hash(login_user['password'],request.form['password'])
             if pw_hash:
@@ -49,9 +43,7 @@ def login():
                 return jsonify({ 'status' : 'login Successful'})
             else:
                 return jsonify({'status': 'incorrect password'})
-
         return jsonify({'status': 'username does not exist' })
-    
     return jsonify({'status' : 'load login page' })
 
 @app.route('/signUp', methods=['POST', 'GET'])
@@ -60,7 +52,6 @@ def signup():
     if request.method == 'POST':
         users = mongo.db.users
         existing_user = users.find_one({'username':request.form['username']})
-
         if existing_user is None:
             hashpass = bcrypt.generate_password_hash(request.form['password'])
             users.insert({
@@ -91,19 +82,11 @@ def comment():
     comments = mongo.db.comments
     return jsonify(comments)
 
-
 @app.route('/logout',methods=['GET'])
 @checkLoggedIn()
 def logout():
     session.pop('username')
     return jsonify({'status':'logout'})
-
-#@app.route('/forgotPassword',methods=['GET'])
-#def forgot():
-# are we directing to a confirm email page?
-    #return redirect(url_for('index'))
-    # How about using render_template
-    # return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
