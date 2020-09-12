@@ -6,15 +6,19 @@ from bson import json_util
 from flask_bcrypt import Bcrypt
 import dns
 import os
-from MongoDB import data
-import model
 
 app = Flask(__name__,template_folder="scr/components/layouts")
-app.secret_key = os.getenv("secret_key")
+app.secret_key = os.getenv(secret_key)
+app.config['MONGO_URI'] = 'mongodb+srv://admin:password!@cluster0.2d4yb.mongodb.net/hacker-news?retryWrites=true&w=majority'
+mongo = PyMongo(app)
+bcrypt = Bcrypt(app)
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
     return render_template("index.html")
+#   if 'username' in session:
+#      return jsonify('status':session['username'])
+# return jsonify({'status': 'load home page'})
 
 def checkLoggedIn():
     def check(func):
