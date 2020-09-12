@@ -13,7 +13,7 @@ app.config['MONGO_URI'] = 'mongodb+srv://admin:password!@cluster0.2d4yb.mongodb.
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 
-@app.route('/', methods = ['POST', 'GET'])
+@app.route('/')
 def index():
     return render_template("index.html")
 
