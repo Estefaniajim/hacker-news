@@ -1,10 +1,10 @@
-from flask import Flask, url_for, request, session, redirect, render_template, jsonify
+from flask import Flask, url_for, request, session, redirect, jsonify
 from flask_pymongo import PyMongo
 from functools import wraps
-import json
 from bson import json_util
 from flask_bcrypt import Bcrypt
 import dns
+import json
 
 app = Flask(__name__)
 app.secret_key = 'okeechobee'
@@ -26,7 +26,7 @@ def checkLoggedIn():
 @app.route('/home', methods = ['POST', 'GET'])
 def index():
     if 'username' in session:
-        return jsonify('status':session['username'])
+        return jsonify({'status': session['username']})
     return jsonify({'status': 'load home page'})
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -72,14 +72,22 @@ def submit():
             author = session['username']
             url = request.form['url']
             name = request.form['name']
-            mongo.db.comments.insert({'author': author, 'name':name, 'url': url, 'text': text })
+            comment_id = request.form['id']
+            mongo.db.comments.insert({'id': comment_id, 'author': author, 'name':name, 'url': url, 'text': text })
             return jsonify({'status': 'your comment has been recorded'})
         return jsonify({ 'status': 'load comment submission page' })
     return jsonify({'status': 'you must be logged in to view this page'})
 
-@app.route('/comments', methods = ["GET"])
+@app.route('/comments', methods = ["GET", "POST"])
 def comment():
     comments = mongo.db.comments
+    if request.method() == "POST":
+        if request.form['action'] == 'delete':
+            comments.delete_one({'id': request.form['id']})
+            return jsonify({'status': 'comment'  + str(request.form['id']) +  " successfully deleted"})
+        else:
+            new_text = request.form['text']
+            comments.update_one({'id': request.form['id']},{'text': new_text} )
     return jsonify(comments)
 
 @app.route('/logout',methods=['GET'])
