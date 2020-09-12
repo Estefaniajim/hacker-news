@@ -3,6 +3,7 @@ import { Link } from "@reach/router";
 import { auth } from "./../../firebase";
 import { AuthContext } from "./../../Auth";
 // import {signUp} from "./SignUp";
+import axios from 'axios';
 
 const SignIn = ({ history }) => {
   const handleLogin = useCallback(

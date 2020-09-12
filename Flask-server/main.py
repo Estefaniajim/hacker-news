@@ -16,6 +16,7 @@ bcrypt = Bcrypt(app)
 @app.route('/', methods = ['POST', 'GET'])
 def index():
     return render_template("index.html")
+
 #   if 'username' in session:
 #      return jsonify('status':session['username'])
 # return jsonify({'status': 'load home page'})
