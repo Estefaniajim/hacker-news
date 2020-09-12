@@ -1,19 +1,28 @@
 import React from 'react';
 import axios from 'axios';
+import CommentList from "./CommentList";
+import {useAuth0} from "@auth0/auth0-react";
+
 
 
 
 
 class CommentForm extends React.Component {
+ 
 
+ 
   state = {
     title: '',
     body: '',
     posts: []
+    
   };
 
   componentDidMount = () => {
+ 
+
     this.getBlogPost();
+
   };
 
 
@@ -67,8 +76,9 @@ class CommentForm extends React.Component {
     });
   };
 
-  displayBlogPost = (posts) => {
-
+  
+displayBlogPost = (posts) => {
+   
     if (!posts.length) return null;
 
 
@@ -115,11 +125,14 @@ class CommentForm extends React.Component {
         </form>
 
         <div className="blog-">
-          {this.displayBlogPost(this.state.posts)}
+         
         </div>
+       {this.displayBlogPost(this.state.posts)}
       </div>
+     
     );
   }
+  
 }
 
 

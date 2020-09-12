@@ -4,7 +4,8 @@ import Navbar2 from "./components/layouts/Navbar2";
 import Footer from "./components/layouts/Footer";
 import News from "./components/News";
 import Welcome from "./components/layouts/Welcome";
-import Login from "./components/layouts/Login";
+import LoginButton from "./components/layouts/LoginButton";
+import LogoutButton from "./components/layouts/LogoutButton";
 import { AuthProvider } from './Auth';
 import CommentForm from "./components/layouts/CommentForm";
 import Threads from "./components/layouts/Threads";
@@ -26,7 +27,8 @@ const App = () => {
   };
 
   return (
-    <AuthProvider>
+    
+ 
     <Router>
       <Header showLoader={showLoader} />
       <Navbar2 showLoader={showLoader} />
@@ -155,15 +157,20 @@ const App = () => {
             key="login"
             path="/login"
             render={() => (
-              <Login
-                isLoading={isLoading}
-                hideLoader={hideLoader}
-                showLoader={showLoader}
-              />
+            <>
+              <LoginButton/>
+              <LogoutButton/>
+            </>
+             
               
+            
+            
+            
 
             )}
           />
+          
+
            <Route
             key="forgotPassword"
             path="/forgotPassword"
@@ -210,9 +217,10 @@ const App = () => {
           />
         </>
       </Switch>
+    
       <Footer />
     </Router>
-    </AuthProvider>
+  
   );
 };
 

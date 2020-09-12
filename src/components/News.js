@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 import Stories from "./layouts/Stories";
 import Loader from "./layouts/Loader";
+import CommentList from "./layouts/CommentList";
 const News = props => {
   const [state, setState] = useState([]);
   const [count, setCount] = useState(21);
@@ -130,6 +131,7 @@ const News = props => {
             <table className="table">
               <tbody>
                 <Stories state={state} />
+              
               </tbody>
             </table>
           </div>

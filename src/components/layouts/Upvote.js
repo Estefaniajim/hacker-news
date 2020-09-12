@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {useAuth0} from "@auth0/auth0-react";
 class Upvote extends Component {
   
   state = { vote: 0, score: 0 }
@@ -15,6 +15,7 @@ class Upvote extends Component {
   
   render() {
     const { vote, score } = this.state;
+    const { user } = useAuth0();
     return (
       <div>
         <h4>{score + vote}</h4>

@@ -20,12 +20,14 @@ const Header = ({ showLoader }) => {
 
       <Link
           to="/login"
-          style={{ position:"absolute", right:10,color: "#fff", textDecoration: "none" }}
+          style={{ position:"absolute", right:100,color: "#fff", textDecoration: "none" }}
           onClick={showLoader}
           className="navLink"
         >
           <span>login</span>
         </Link>
+
+        
     </Navbar>
   );
 };
