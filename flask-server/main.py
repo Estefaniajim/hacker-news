@@ -23,20 +23,20 @@ def checkLoggedIn():
             if 'username' in session:
                 return func(*args, **kwargs)
             else:
-                return jsonify({"Error":"Please Login"})
+                return jsonify({"error":"please login before accessing this page"})
         return inner
     return check               
           
 @app.route('/home', methods = ['POST', 'GET'])
 def index():
     if 'username' in session:
-        return jsonify('You are logged in as ' + session['username'])
-    return jsonify({1:1})
+        return jsonify('status':session['username'])
+    return jsonify({'status': 'load home page'})
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'username' in session:
-        return jsonify({'status': 'Already logged in' })
+        return jsonify({'status': 'Logged in' })
 
     if request.method == 'POST':
         users = mongo.db.users
@@ -46,16 +46,16 @@ def login():
             pw_hash = bcrypt.check_password_hash(login_user['password'],request.form['password'])
             if pw_hash:
                 session['username'] = request.form['username']
-                return jsonify({ 'status' : 'Login Successful'})
+                return jsonify({ 'status' : 'login Successful'})
             else:
                 return jsonify({'status': 'incorrect password'})
 
-        return jsonify({'status': 'username not found' })
+        return jsonify({'status': 'username does not exist' })
     
-    return jsonify({ 1 : 1 })
+    return jsonify({'status' : 'load login page' })
 
 @app.route('/signUp', methods=['POST', 'GET'])
-def register():
+def signup():
     session.pop('username', None)
     if request.method == 'POST':
         users = mongo.db.users
@@ -68,28 +68,42 @@ def register():
                     'password' : hashpass}
                     )
             session['username'] = request.form['username']
-            return jsonify({'status' : 'Registration successful'})
-        return jsonify({'status' : 'That username already exists! Try a new one'})
-    return jsonify({ 1 : 1 })
+            return jsonify({'status' : 'registration successful'})
+        return jsonify({'status' : 'username already exists'})
+    return jsonify({ 'status': 'load registration page' })
 
+@app.route('/submit', methods = ["POST", "GET"])
+@checkLoggedIn()
+def submit():
+    if 'username' in session:
+        if request.method == "POST":
+            text = request.form['text']
+            author = session['username']
+            url = request.form['url']
+            name = request.form['name']
+            mongo.db.comments.insert({'author': author, 'name':name, 'url': url, 'text': text })
+            return jsonify({'status': 'your comment has been recorded'})
+        return jsonify({ 'status': 'load comment submission page' })
+    return jsonify({'status': 'you must be logged in to view this page'})
+
+@app.route('/comments', methods = ["GET"])
+def comment():
+    comments = mongo.db.comments
+    return jsonify(comments)
 
 
 @app.route('/logout',methods=['GET'])
 @checkLoggedIn()
 def logout():
     session.pop('username')
-    return jsonify({'status':'Logout'})
+    return jsonify({'status':'logout'})
 
-@app.route('/forgotPassword',methods=['GET'])
-def forgot():
+#@app.route('/forgotPassword',methods=['GET'])
+#def forgot():
 # are we directing to a confirm email page?
     #return redirect(url_for('index'))
     # How about using render_template
     # return render_template("index.html")
 
-#************************FEATURES API ENDPOINTS **************************************************************
-
 if __name__ == '__main__':
     app.run(debug=True)
-
-# app.run(host='0.0.0.0', port=8080, debug=True)
