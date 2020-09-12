@@ -2,6 +2,7 @@ import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
+import CommentForm from "./CommentForm";
 
 
 const Navbar2 = ({ showLoader }) => {
@@ -51,6 +52,7 @@ const Navbar2 = ({ showLoader }) => {
           className="navLink"
         >
           <span>comment</span>
+         
         </Link>
 
         <Link

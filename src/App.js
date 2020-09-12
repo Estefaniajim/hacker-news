@@ -11,6 +11,7 @@ import Threads from "./components/layouts/Threads";
 import SignUp from "./components/layouts/SignUp";
 import forgotPassword from "./components/layouts/forgotPassword";
 
+
 import "./App.css";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
@@ -109,7 +110,7 @@ const App = () => {
             key="comments"
             path="/comments"
             render={() => (
-              <News
+              <CommentForm
                 isLoading={isLoading}
                 hideLoader={hideLoader}
                 showLoader={showLoader}

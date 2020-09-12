@@ -1,161 +1,126 @@
-import React, { Component } from "react";
-import Threads from "./Threads";
-import {Link} from "react";
+import React from 'react';
+import axios from 'axios';
 
 
-export default class CommentForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      error: "",
 
-      comment: {
-        name: "",
-        message: ""
-      }
-    };
 
-    // bind context to methods
-    this.handleFieldChange = this.handleFieldChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+class CommentForm extends React.Component {
 
-  /**
-   * Handle form input field changes & update the state
-   */
-  handleFieldChange = event => {
-    const { value, name } = event.target;
-
-    this.setState({
-      ...this.state,
-      comment: {
-        ...this.state.comment,
-        [name]: value
-      }
-    });
+  state = {
+    title: '',
+    body: '',
+    posts: []
   };
 
-  /**
-   * Form submit handler
-   */
-  onSubmit(e) {
-    // prevent default form submission
-    e.preventDefault();
+  componentDidMount = () => {
+    this.getBlogPost();
+  };
 
-    if (!this.isFormValid()) {
-      this.setState({ error: "All fields are required." });
-      return;
-    }
 
-    // loading status and clear error
-    this.setState({ error: "", loading: true });
-
-    // persist the comments on server
-    let { comment } = this.state;
-    fetch("http://localhost:7777", {
-      method: "post",
-      body: JSON.stringify(comment)
-    })
-      .then(res => res.json())
-      .then(res => {
-        if (res.error) {
-          this.setState({ loading: false, error: res.error });
-        } else {
-          // add time return from api and push comment to parent state
-          comment.time = res.time;
-          this.props.addComment(comment);
-
-          // clear the message box
-          this.setState({
-            loading: false,
-            comment: { ...comment, message: "" }
-          });
-        }
+  getBlogPost = () => {
+    axios.get('/api')
+      .then((response) => {
+        const data = response.data;
+        this.setState({ posts: data });
+        console.log('Data has been received!!');
       })
-      .catch(err => {
-        this.setState({
-          error: "Something went wrong while submitting form.",
-          loading: false
-        });
+      .catch(() => {
+        alert('Error retrieving data!!!');
       });
   }
 
-  /**
-   * Simple validation
-   */
-  isFormValid() {
-    return this.state.comment.name !== "" && this.state.comment.message !== "";
-  }
-
-  renderError() {
-    return this.state.error ? (
-      <div className="alert alert-danger">{this.state.error}</div>
-    ) : null;
-  }
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    
+    this.setState({ [name]: value });
+  };
 
 
- 
+  submit = (event) => {
+    event.preventDefault();
+
+    const payload = {
+      title: this.state.title,
+      body: this.state.body
+    };
+
+
+    axios({
+      url: '/api/save',
+      method: 'POST',
+      data: payload
+    })
+      .then(() => {
+        console.log('Data has been sent to the server');
+        this.resetUserInputs();
+        this.getBlogPost();
+      })
+      .catch(() => {
+        console.log('Internal server error');
+      });;
+  };
+
+  resetUserInputs = () => {
+    this.setState({
+      title: '',
+      body: ''
+    });
+  };
+
+  displayBlogPost = (posts) => {
+
+    if (!posts.length) return null;
+
+
+    return posts.map((post, index) => (
+      <div key={index} className="blog-post__display">
+        <h3>{post.title}</h3>
+        <p>{post.body}</p>
+      </div>
+    ));
+  };
 
   render() {
 
-    return (
-   
-        <form method="post" onSubmit={this.onSubmit}>
-          <div className="form-group">
-            title
-            <input
-              onChange={this.handleFieldChange}
-              value={this.state.comment.name}
-              className="form-control"
-              placeholder="Your Name"
-              name="name"
-              type="text"
-            />
-          </div>
-          <div className="form-group">
-            url
-            <input
-              onChange={this.handleFieldChange}
-              value={this.state.comment.name}
-              className="form-control"
-              placeholder="Your Name"
-              name="name"
-              type="text"
-            />
-          </div>
+    console.log('State: ', this.state);
 
-          <div className="form-group">
-            text
+    //JSX
+    return(
+      <div className="app">
+        <h5>Add Comment</h5>
+        <form onSubmit={this.submit}>
+          <div className="form-input">
+            <input 
+              type="text"
+              name="title"
+              placeholder="Title"
+              value={this.state.title}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-input">
             <textarea
-              onChange={this.handleFieldChange}
-              value={this.state.comment.message}
-              className="form-control"
-              placeholder=" Your Comment"
-              name="message"
-              rows="5"
-            />
+              placeholder="body"
+              name="body"
+              cols="30"
+              rows="10"
+              value={this.state.body}
+              onChange={this.handleChange}
+            >
+              
+            </textarea>
           </div>
 
-          
-    
-
-          <div className="form-group">
-            <button className="btn btn-primary"  >
-              Submit &#10148;
-            </button>
-          </div>
-          <Threads message={this.state.comment.name}/>
-          <div>
-          
-          Leave url blank to submit a question for discussion. If there is no url, the text (if any) will appear at the top of the thread.
-          
-          You can also submit via bookmarklet.
-                  </div>
+          <button>Submit</button>
         </form>
-      
-       
-    
+
+        <div className="blog-">
+          {this.displayBlogPost(this.state.posts)}
+        </div>
+      </div>
     );
   }
 }
+
+
+export default CommentForm;

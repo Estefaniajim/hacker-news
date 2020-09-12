@@ -35,9 +35,9 @@ const News = props => {
         route = "/topstories";
         break;
 
-        case "/comments":
-          route = "/text"
-          break;
+      case "/comments":
+        route = "/text"
+        break;
 
 
       case "/new":
@@ -77,7 +77,7 @@ const News = props => {
     const arr = [];
     try {
       const { data } = await axios.get(
-        `https://hacker-news.firebaseio.com/v0${category}.json?print=pretty`
+        `https://hacker-news.firebaseio.com/v0/${category}.json?print=pretty`
       );
       data.slice(start, end).map(item => arr.push(item));
     } catch (error) {
