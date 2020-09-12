@@ -110,7 +110,7 @@ const App = () => {
             key="comments"
             path="/comments"
             render={() => (
-              <CommentForm
+              <News
                 isLoading={isLoading}
                 hideLoader={hideLoader}
                 showLoader={showLoader}

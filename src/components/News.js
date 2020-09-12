@@ -3,54 +3,44 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 import Stories from "./layouts/Stories";
 import Loader from "./layouts/Loader";
-
 const News = props => {
   const [state, setState] = useState([]);
   const [count, setCount] = useState(21);
   const [isLoading, setLoading] = useState(false);
-
+  const [initialData, setInitialData] = useState([{}]);
   //a global index to keep track of the all showed items
-
   //setting different api params for different routes
   const checkRoute = () => {
     let route;
+    console.log(route, 'r', props.location.pathname)
     switch (props.location.pathname) {
       case "/":
         route = "/topstories";
         break;
-
       case "/shows":
         route = "/showstories";
         break;
-
       case "/ask":
         route = "/askstories";
         break;
-
       case "/jobs":
         route = "/jobstories";
         break;
-
       case "/top":
         route = "/topstories";
         break;
-
       case "/comments":
         route = "/text"
         break;
-
-
       case "/new":
         route = "/newstories";
         break;
-
       case "/best":
         route = "/beststories";
         break;
       case "/past":
           route = "/beststories";
           break;
-
       default:
         route = "/notFound";
         break;
@@ -71,24 +61,27 @@ const News = props => {
       );
     });
   }, []);
-
   //getting all the data ids and storing them in an array
   const getData = async function(category, start, end) {
     const arr = [];
+    console.log('category', category)
     try {
       const { data } = await axios.get(
-        `https://hacker-news.firebaseio.com/v0/${category}.json?print=pretty`
+        `https://hacker-news.firebaseio.com/v0${category}.json?print=pretty`
       );
       data.slice(start, end).map(item => arr.push(item));
     } catch (error) {
-      return error;
+      fetch('/comments').then(
+        response => response.json()
+      ).then(data => setInitialData(data));
     }
     return arr;
   };
-
   //fetching data from those ids and storing only the necessary datas in an array
   const getDeatils = async function(arr) {
-    const promises = arr.map(async item => {
+    console.log(arr, 'array')
+    const promises = await arr.map(async item => {
+      console.log(arr, 'arr', item, 'item')
       const { data } = await axios.get(
         `https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`
       );
@@ -108,7 +101,6 @@ const News = props => {
     const results = await Promise.all(promises);
     return results;
   };
-
   const showMoreContent = () => {
     setLoading(true);
     getData(checkRoute(), count, count + 20).then(arr => {
@@ -121,7 +113,6 @@ const News = props => {
       );
     });
   };
-
   //return statement
   return (
     <>
@@ -142,6 +133,9 @@ const News = props => {
               </tbody>
             </table>
           </div>
+          <div>
+            {console.log(initialData)}
+          </div>
           <div className="text-center m-1">
             <span className="more-btn " onClick={showMoreContent}>
               More
@@ -152,5 +146,4 @@ const News = props => {
     </>
   );
 };
-
 export default withRouter(News);
