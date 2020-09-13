@@ -15,7 +15,7 @@ class Upvote extends Component {
   
   render() {
     const { vote, score } = this.state;
-    const { user } = useAuth0();
+    //const { user } = useAuth0();
     return (
       <div>
         <h4>{score + vote}</h4>

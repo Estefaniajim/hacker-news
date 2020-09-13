@@ -1,0 +1,13 @@
+Fabric
+WTForms
+coverage
+flask_pymongo
+dnspython
+pymongo[srv]
+flask_bcrypt
+gunicorn
+Flask-SQLAlchemy
+Flask-WTF
+# ecdsa
+# paramiko
+# pycrypto
