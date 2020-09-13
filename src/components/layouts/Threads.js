@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import CommentForm from './CommentForm';
 import {useAuth0} from "@auth0/auth0-react";
 
-
-class Threads extends React.Component {
-
-render(){
+const Threads = props => {
+  const { user } = useAuth0();
   return(
-      <div> 
-          <text>{this.props.message}</text>
-      </div>
-
-  )
-}
-}
+    user ?
+    <div> 
+      <text>{props.message}</text>
+    </div> : null
+  );
+};
 
 export default Threads

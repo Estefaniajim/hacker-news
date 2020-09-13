@@ -4,6 +4,8 @@ import axios from "axios";
 import Stories from "./layouts/Stories";
 import Loader from "./layouts/Loader";
 import CommentList from "./layouts/CommentList";
+import { LoremIpsum } from 'react-lorem-ipsum';
+
 const News = props => {
   const [state, setState] = useState([]);
   const [count, setCount] = useState(21);
@@ -137,6 +139,9 @@ const News = props => {
           </div>
           <div>
             {console.log(initialData)}
+          </div>
+          <div>
+            <LoremIpsum p={4} />
           </div>
           <div className="text-center m-1">
             <span className="more-btn " onClick={showMoreContent}>
