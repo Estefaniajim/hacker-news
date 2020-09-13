@@ -61,7 +61,7 @@ def signup():
             session['username'] = request.form['username']
             return jsonify({'status' : 'registration successful'})
         return jsonify({'status' : 'username already exists'})
-    return jsonify({ 'status': 'load registration page' })
+    return jsonify(mongo.db.users.prettyprint())#jsonify({ 'status': 'load registration page' })
 
 @app.route('/submit', methods = ["POST", "GET"])
 @checkLoggedIn()
@@ -81,7 +81,7 @@ def submit():
 @app.route('/comments', methods = ["GET", "POST"])
 def comment():
     comments = mongo.db.comments
-    if request.method() == "POST":
+    if request.method == "POST":
         if request.form['action'] == 'delete':
             comments.delete_one({'id': request.form['id']})
             return jsonify({'status': 'comment'  + str(request.form['id']) +  " successfully deleted"})
