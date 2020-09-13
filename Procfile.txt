@@ -1,2 +1,0 @@
-#Procfile
-web: gunicorn still-forest-56268.wsgi --log-file -
